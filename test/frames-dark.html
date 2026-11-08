@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>嵌入内容测试 · 深色父页面</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 34px 40px 50px; background: #0d1015; color: #e7ebf0;
+    font: 14px/1.65 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -.3px; }
+  p.sub { margin: 0 0 24px; color: #8c96a3; font-size: 12.5px; }
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .frame-card { border: 1px solid #242c36; border-radius: 16px; background: #151a21; padding: 10px; }
+  .frame-card h2 { margin: 2px 4px 9px; font-size: 11px; letter-spacing: .6px; color: #8c96a3; text-transform: uppercase; }
+  iframe { display: block; width: 100%; height: 260px; border: 0; border-radius: 11px; background: #fff; }
+  .copy { margin-top: 26px; max-width: 760px; color: #aab3c0; font-size: 13px; }
+  .copy b { color: #e7ebf0; }
+</style>
+</head>
+<body>
+  <h1>嵌入内容测试</h1>
+  <p class="sub">父页面是原生深色。左侧播放器应保持深色，右侧浅色表单应被单独压暗。</p>
+
+  <div class="frames">
+    <div class="frame-card">
+      <h2>原生深色 iframe · 保持原样</h2>
+      <iframe src="embed-dark.html" title="深色播放器"></iframe>
+    </div>
+    <div class="frame-card">
+      <h2>原生浅色 iframe · 单独压暗</h2>
+      <iframe src="embed-light.html" title="浅色表单"></iframe>
+    </div>
+  </div>
+
+  <div class="copy">
+    <p><b>预期：</b>父页面不被反色；左侧播放器保持深色；右侧表单被单独压暗，照片颜色正常。</p>
+  </div>
+</body>
+</html>

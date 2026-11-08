@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>嵌入内容测试 · 浅色父页面</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 34px 40px 50px; background: #fbfaf7; color: #1e2126;
+    font: 14px/1.65 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  h1 { margin: 0 0 4px; font-size: 26px; letter-spacing: -.3px; }
+  p.sub { margin: 0 0 24px; color: #757b85; font-size: 12.5px; }
+  .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .frame-card { border: 1px solid #e2ded5; border-radius: 16px; background: #fff; padding: 10px; }
+  .frame-card h2 { margin: 2px 4px 9px; font-size: 11px; letter-spacing: .6px; color: #7c828c; text-transform: uppercase; }
+  iframe { display: block; width: 100%; height: 260px; border: 0; border-radius: 11px; background: #fff; }
+  .copy { margin-top: 26px; max-width: 760px; color: #454a52; font-size: 13px; }
+  .copy b { color: #1e2126; }
+</style>
+</head>
+<body>
+  <h1>嵌入内容测试</h1>
+  <p class="sub">父页面是浅色。左侧是原生深色播放器，右侧是原生浅色表单。</p>
+
+  <div class="frames">
+    <div class="frame-card">
+      <h2>原生深色 iframe · 应保持深色</h2>
+      <iframe src="embed-dark.html" title="深色播放器"></iframe>
+    </div>
+    <div class="frame-card">
+      <h2>原生浅色 iframe · 应被压暗</h2>
+      <iframe src="embed-light.html" title="浅色表单"></iframe>
+    </div>
+  </div>
+
+  <div class="copy">
+    <p><b>预期：</b>父页面整体变暗；左侧播放器仍然是深色，右侧表单也变暗，但两张照片都保持自然颜色，不出现负片。</p>
+    <p>这一段普通正文用来观察页面底色、卡片边框和文字对比度。暗色模式应该在完全不改变布局的情况下完成。</p>
+  </div>
+</body>
+</html>

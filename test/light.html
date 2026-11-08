@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>晨间阅读 · 把清晨的光留在字里行间</title>
+<style>
+  :root {
+    --ink: #1b1c1f;
+    --muted: #6c7078;
+    --line: #e4e1da;
+    --paper: #fbfaf7;
+    --card: #ffffff;
+    --accent: #c46a3d;
+    --accent-soft: #f4e2d5;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 15px/1.75 "Segoe UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 66px;
+    padding: 0 42px;
+    background: rgba(251, 250, 247, 0.86);
+    border-bottom: 1px solid rgba(228, 225, 218, 0.9);
+    backdrop-filter: blur(14px);
+  }
+  .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; letter-spacing: .3px; }
+  .brand-mark {
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px;
+    background: #20232a; color: #f3c46b;
+  }
+  .brand-mark svg { width: 18px; height: 18px; }
+  nav { display: flex; gap: 22px; font-size: 13px; color: var(--muted); }
+  nav a.active { color: var(--ink); font-weight: 600; position: relative; }
+  nav a.active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 2px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+  button { font-family: inherit; cursor: pointer; }
+  .ghost {
+    border: 1px solid var(--line); background: transparent; color: var(--muted);
+    border-radius: 99px; padding: 7px 14px; font-size: 12px;
+  }
+  .primary {
+    border: 0; background: #20232a; color: #fff; border-radius: 99px;
+    padding: 8px 17px; font-size: 12px; font-weight: 600;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.02fr .98fr;
+    align-items: center;
+    gap: 54px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 132px 42px 62px;
+  }
+  .eyebrow {
+    margin: 0 0 16px;
+    font-size: 10.5px; letter-spacing: 2.4px; font-weight: 700; color: var(--accent);
+  }
+  h1 {
+    margin: 0;
+    font-family: Georgia, "Songti SC", "SimSun", serif;
+    font-size: clamp(40px, 5vw, 62px);
+    line-height: 1.16;
+    font-weight: 600;
+    letter-spacing: -.5px;
+  }
+  .lede { margin: 20px 0 26px; max-width: 470px; color: #555a63; font-size: 15.5px; }
+  .byline { display: flex; align-items: center; gap: 11px; font-size: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); }
+  .byline strong { display: block; font-size: 12.5px; }
+  .byline span { color: var(--muted); }
+  .hero-figure { margin: 0; }
+  .hero-figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px; box-shadow: 0 24px 60px rgba(38, 32, 26, .18); }
+  .hero-figure figcaption { margin-top: 10px; font-size: 11px; color: var(--muted); text-align: right; }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 292px;
+    gap: 58px;
+    max-width: 1030px;
+    margin: 0 auto;
+    padding: 22px 42px 90px;
+    scroll-margin-top: 86px;
+    border-top: 1px solid var(--line);
+  }
+  article { min-width: 0; padding-top: 36px; }
+  article > p { margin: 0 0 22px; color: #33363c; font-size: 15.5px; }
+  .dropcap::first-letter {
+    float: left; margin: 7px 10px 0 0; font-family: Georgia, serif;
+    font-size: 62px; line-height: .78; color: var(--accent);
+  }
+  h2 { margin: 38px 0 14px; font-family: Georgia, "Songti SC", serif; font-size: 28px; font-weight: 600; }
+  h3 { margin: 0 0 6px; font-size: 16px; }
+  .inline-figure { margin: 30px 0; }
+  .inline-figure img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; }
+  .inline-figure figcaption { margin-top: 9px; font-size: 11px; color: var(--muted); }
+  blockquote {
+    margin: 30px 0; padding: 20px 24px; border-left: 3px solid var(--accent);
+    background: var(--accent-soft); border-radius: 0 12px 12px 0;
+    font-family: Georgia, "Songti SC", serif; font-size: 20px; line-height: 1.6; color: #5a3423;
+  }
+  .checklist { margin: 0 0 26px; padding: 0; list-style: none; }
+  .checklist li { position: relative; padding-left: 28px; margin: 9px 0; color: #33363c; }
+  .checklist li::before {
+    content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px; border-radius: 50%;
+    background: #dfece4; box-shadow: inset 0 0 0 1px #b9d2c1;
+  }
+  .checklist li::after {
+    content: ""; position: absolute; left: 4px; top: 10px; width: 7px; height: 4px;
+    border-left: 2px solid #4b7d5e; border-bottom: 2px solid #4b7d5e; transform: rotate(-45deg);
+  }
+  pre {
+    margin: 24px 0; padding: 18px 20px; overflow: auto; border-radius: 12px;
+    background: #23262c; color: #e9edf3; font: 12.5px/1.7 Consolas, "Cascadia Code", monospace;
+  }
+  code { font-family: Consolas, "Cascadia Code", monospace; }
+  .form-card {
+    margin: 34px 0 12px; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: #fff;
+  }
+  .form-card p { margin: 4px 0 16px; color: var(--muted); font-size: 13px; }
+  .field { display: grid; gap: 6px; margin-bottom: 12px; font-size: 12px; color: var(--muted); }
+  .field input {
+    width: 100%; padding: 10px 12px; border: 1px solid #d9d5cc; border-radius: 9px;
+    background: #fbfaf7; color: var(--ink); font: inherit; font-size: 13px;
+  }
+  .form-row { display: flex; gap: 10px; }
+  .form-row input { flex: 1; }
+  .form-card .primary { padding: 10px 20px; font-size: 12.5px; }
+  .check { display: flex; align-items: center; gap: 8px; margin: 12px 0 16px; font-size: 12px; color: var(--muted); }
+  input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; }
+
+  aside { padding-top: 38px; display: grid; gap: 16px; align-content: start; }
+  .side-card { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+  .side-card .label { margin: 0 0 12px; font-size: 9.5px; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
+  .author { display: flex; align-items: center; gap: 11px; }
+  .author img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+  .author strong { display: block; font-size: 13px; }
+  .author span { font-size: 11px; color: var(--muted); }
+  .side-card.accent { background: #20232a; color: #f1efe9; border-color: #20232a; }
+  .side-card.accent p { margin: 0 0 10px; font-size: 12.5px; line-height: 1.65; color: #c9c5bb; }
+  .side-card.accent a { color: #f3c46b; font-size: 12px; font-weight: 600; }
+  .top-list { margin: 0; padding: 0; list-style: none; counter-reset: top; }
+  .top-list li { counter-increment: top; display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid #efede7; font-size: 12.5px; line-height: 1.5; }
+  .top-list li:first-child { border-top: 0; padding-top: 0; }
+  .top-list li::before { content: counter(top, decimal-leading-zero); color: #b8a99b; font-size: 10px; font-weight: 700; padding-top: 2px; }
+
+  .site-footer {
+    display: flex; justify-content: space-between; gap: 20px;
+    max-width: 1180px; margin: 0 auto; padding: 26px 42px 40px;
+    border-top: 1px solid var(--line); color: var(--muted); font-size: 11px;
+  }
+
+  @media (max-width: 900px) {
+    .hero, .content { grid-template-columns: 1fr; padding-left: 22px; padding-right: 22px; }
+    .site-header { padding: 0 22px; gap: 14px; }
+    nav { display: none; }
+    aside { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M20.3 14.6A8.7 8.7 0 0 1 9.4 3.7a8.7 8.7 0 1 0 10.9 10.9Z" fill="currentColor"/></svg>
+      </span>
+      晨间阅读
+    </a>
+    <nav>
+      <a href="#" class="active">文章</a>
+      <a href="#">专栏</a>
+      <a href="#">书单</a>
+      <a href="#">关于</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="ghost">搜索</button>
+      <button type="button" class="primary">订阅</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">FIELD NOTES · NO. 04</p>
+        <h1>把清晨的光，<br>留在字里行间</h1>
+        <p class="lede">在一天的噪声抵达之前，给自己留二十分钟。读几页书，写三行字，或者只是看着窗外慢慢亮起来。</p>
+        <div class="byline">
+          <img class="avatar" src="avatar.jpg" alt="作者头像">
+          <div><strong>林墨</strong><span>2026 年 11 月 8 日 · 6 分钟阅读</span></div>
+        </div>
+      </div>
+      <figure class="hero-figure">
+        <img src="photo.jpg" alt="清晨的山与湖">
+        <figcaption>清晨五点半，山谷里还没有风。摄影 / 林墨</figcaption>
+      </figure>
+    </section>
+
+    <section class="content" id="article">
+      <article>
+        <p class="dropcap">很多个早晨，我是被手机屏幕照亮的。通知一条接一条地涌进来，像有人把一整天的喧闹提前塞进了房间。后来我试着把手机留在客厅，只带一杯温水回到书桌前，才发现清晨原来是有声音的。</p>
+        <p>那是楼下早点铺卷帘门抬起的声音，是远处第一班公交进站的声音，也是笔尖落在纸上、沙沙的、几乎听不见的声音。它们不催促我，只是安静地陪着我，把一天的节奏放慢半拍。</p>
+
+        <blockquote>“所谓好好生活，不过是把注意力还给眼前的事物。”</blockquote>
+
+        <figure class="inline-figure">
+          <img src="photo.jpg" alt="湖面上的晨光">
+          <figcaption>光落下来的时候，湖面像一张被轻轻摊开的信纸。</figcaption>
+        </figure>
+
+        <h2>慢下来，才能看见</h2>
+        <p>我们习惯把早晨交给待办清单：回消息、看新闻、确认日程。效率没有错，只是当每一分钟都被安排得满满当当，人就很难再注意到那些没有被命名的小事——窗台上新开的花，杯口升起的一小缕热气，邻居家猫从墙头跳下去时尾巴的弧度。</p>
+        <p>看见它们并不需要额外的时间，只需要把注意力从“下一件事”挪回“这一件事”。这大概就是清晨最慷慨的地方：它不要求你立刻变得更好，只邀请你先在场。</p>
+
+        <h3>三个小练习</h3>
+        <ul class="checklist">
+          <li>醒来后先不碰手机，喝一杯温水。</li>
+          <li>写下今天最重要的一件事，只写一件。</li>
+          <li>出门前在窗边站两分钟，什么都不做。</li>
+        </ul>
+
+        <p>如果愿意，可以给每个练习配一句很短的话，记录当时的光线、气味或者心情。日子久了，这些句子会变成一部只属于你的清晨词典。</p>
+
+        <pre><code>const morning = {
+  light: "warm",
+  noise: false,
+  attention: "here",
+  note: "先在场，再出发"
+};</code></pre>
+
+        <div class="form-card">
+          <h3>订阅每周来信</h3>
+          <p>每周日早上，寄一封不着急的信。</p>
+          <label class="field">邮箱
+            <input type="email" placeholder="you@example.com">
+          </label>
+          <div class="form-row">
+            <input type="text" placeholder="想读到什么？">
+            <button type="button" class="primary">订阅</button>
+          </div>
+          <label class="check"><input type="checkbox" checked> 每周只发一封，随时可以退订</label>
+        </div>
+      </article>
+
+      <aside>
+        <div class="side-card">
+          <p class="label">关于作者</p>
+          <div class="author">
+            <img src="avatar.jpg" alt="作者头像">
+            <div><strong>林墨</strong><span>写作者 · 慢生活练习生</span></div>
+          </div>
+        </div>
+        <div class="side-card">
+          <p class="label">本周最多人读</p>
+          <ol class="top-list">
+            <li>把周末过成一段没有目的的路</li>
+            <li>一张书桌的整理方法</li>
+            <li>在城市里寻找可以发呆的地方</li>
+            <li>关于早睡的五个小误会</li>
+          </ol>
+        </div>
+        <div class="side-card accent">
+          <p>“愿你在忙碌里，仍有一小块不被安排的时间。”</p>
+          <a href="#">阅读往期来信 →</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 2026 晨间阅读 · 一个关于慢生活的练习场</span>
+    <span>Made for testing dark mode</span>
+  </footer>
+
+  <script>
+    if (!location.search.includes('top=1')) {
+      window.setTimeout(() => {
+        document.getElementById('article').scrollIntoView({ block: 'start' });
+      }, 700);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# 本地测试与打包产物
+qa/
+_zipcheck/
+*.zip
+tools/__pycache__/
+__pycache__/
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

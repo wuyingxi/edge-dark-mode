@@ -1,0 +1,78 @@
+/*
+ * 暗夜模式 · 页面滤镜
+ *
+ * 用一层覆盖整个视口的 backdrop-filter 给页面“重新打光”：
+ * 反色 + 180° 色相旋转，亮度关系翻转，颜色大致回到原来的色相。
+ *
+ * 这样做不会给 html/body 增加 filter（那会破坏 position: fixed 的定位基准），
+ * 固定导航、吸顶栏和弹层都能保持原来的位置。
+ *
+ * iframe 会单独协调：父页面已经反色时，iframe 只给图片/视频补一次反色；
+ * 原生深色的 iframe 则再叠一层，抵消父级反色，保持它原本的深色外观。
+ */
+
+html[data-edm-dark="1"],
+html[data-edm-media="1"] {
+  background-color: #ffffff !important;
+  /* 根滚动条在反色层之外，单独给它深色；内部滚动条仍交给反色层处理。 */
+  scrollbar-color: #59616e #101419;
+}
+
+html[data-edm-dark="1"] *,
+html[data-edm-media="1"] * {
+  scrollbar-color: auto;
+}
+
+/* 没有自己反色层的浅色子框架，滚动条由父页面合成，无法可靠地变暗。
+   直接隐藏它的滚动条，内容仍然可以用滚轮/触控板滚动，避免一条刺眼的白边。 */
+html[data-edm-media="1"]:not([data-edm-dark="1"]) {
+  scrollbar-width: none !important;
+}
+
+html[data-edm-media="1"]:not([data-edm-dark="1"])::-webkit-scrollbar {
+  display: none;
+}
+
+html[data-edm-dark="1"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+  background: transparent;
+  -webkit-backdrop-filter: invert(1) hue-rotate(180deg)
+    brightness(var(--edm-brightness, 1))
+    contrast(var(--edm-contrast, 1))
+    saturate(var(--edm-saturation, 1));
+  backdrop-filter: invert(1) hue-rotate(180deg)
+    brightness(var(--edm-brightness, 1))
+    contrast(var(--edm-contrast, 1))
+    saturate(var(--edm-saturation, 1));
+}
+
+/* 页面最终被反色一次时，图片/视频先反色一次，抵消后保持原色。 */
+html[data-edm-dark="1"]:not([data-edm-cancel="1"]) img,
+html[data-edm-dark="1"]:not([data-edm-cancel="1"]) video,
+html[data-edm-media="1"] img,
+html[data-edm-media="1"] video {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+/* 打印时恢复原样，避免把深色滤镜带到纸上。 */
+@media print {
+  html[data-edm-dark="1"]::before {
+    display: none !important;
+  }
+
+  html[data-edm-dark="1"],
+  html[data-edm-media="1"] {
+    background: #ffffff !important;
+  }
+
+  html[data-edm-dark="1"] img,
+  html[data-edm-dark="1"] video,
+  html[data-edm-media="1"] img,
+  html[data-edm-media="1"] video {
+    filter: none !important;
+  }
+}

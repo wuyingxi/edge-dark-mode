@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "暗夜模式 · Edge 护眼",
+  "short_name": "暗夜模式",
+  "version": "1.0.0",
+  "description": "一键把任意网页变成舒适的深色，自动跳过原生深色网站，支持亮度、对比度、饱和度调节和按站点开关。",
+  "minimum_chrome_version": "109",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "暗夜模式",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "file:///*"],
+      "js": ["src/content.js"],
+      "css": ["src/content.css"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "commands": {
+    "toggle-site": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "在当前网站开启或关闭暗色模式"
+    }
+  }
+}

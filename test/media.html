@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>媒体测试 · 图片与图标</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 34px 40px 50px; background: #fcfbf8; color: #202329;
+    font: 14px/1.65 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  h1 { margin: 0 0 4px; font-size: 25px; letter-spacing: -.3px; }
+  .sub { margin: 0 0 24px; color: #777d87; font-size: 12.5px; }
+  .layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 22px; }
+  .photo { width: 100%; border-radius: 16px; }
+  .panel { padding: 18px; border: 1px solid #e3e0d9; border-radius: 14px; background: #fff; }
+  .panel h2 { margin: 0 0 12px; font-size: 12px; letter-spacing: 1px; color: #7c828c; text-transform: uppercase; }
+  .row { display: flex; align-items: center; gap: 14px; margin: 12px 0; }
+  .row span { font-size: 12.5px; color: #555b65; }
+  .avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+  .big-avatar { width: 84px; height: 84px; border-radius: 18px; object-fit: cover; }
+  .icons { display: flex; gap: 18px; align-items: center; color: #1d2026; }
+  .icons svg { width: 22px; height: 22px; }
+  .emoji { font-size: 24px; letter-spacing: 3px; }
+  .swatches { display: flex; gap: 8px; }
+  .swatches i { width: 34px; height: 34px; border-radius: 9px; display: block; }
+  .note { margin-top: 18px; padding: 12px 14px; border-radius: 10px; background: #f3efe4; color: #6d6046; font-size: 11.5px; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <h1>媒体与图标测试</h1>
+  <p class="sub">照片应保持自然颜色；黑色线性图标应能在深色背景上看清。</p>
+
+  <div class="layout">
+    <div>
+      <img class="photo" src="photo.jpg" alt="风景照片">
+      <div class="panel" style="margin-top:18px">
+        <h2>人物照片</h2>
+        <div class="row">
+          <img class="avatar" src="avatar.jpg" alt="头像">
+          <img class="big-avatar" src="avatar.jpg" alt="头像大图">
+          <span>人物照片不应变成负片</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>线性图标（内联 SVG）</h2>
+      <div class="icons" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v14H4z"/><path d="m4 6 8 7 8-7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 12h18"/></svg>
+      </div>
+
+      <h2 style="margin-top:22px">Emoji 与色块</h2>
+      <div class="emoji">🌤️ 🍂 ☕ 🐈</div>
+      <div class="swatches" style="margin-top:12px">
+        <i style="background:#d96b4a"></i>
+        <i style="background:#e7b64c"></i>
+        <i style="background:#5f9f78"></i>
+        <i style="background:#4d76b8"></i>
+        <i style="background:#8a63b8"></i>
+      </div>
+
+      <div class="note">这一页用于检查：大图不被反成负片、彩色色块保持原色、图标在暗色下仍然清晰。</div>
+    </div>
+  </div>
+</body>
+</html>
